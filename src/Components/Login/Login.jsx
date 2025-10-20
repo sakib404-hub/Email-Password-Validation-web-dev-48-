@@ -1,11 +1,32 @@
-import React from 'react';
+import { sendEmailVerification, signInWithEmailAndPassword } from 'firebase/auth';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router';
+import { auth } from '../../Firebase/firebase.config';
 
 const Login = () => {
+    const [error, setError] = useState('');
 
 
-    const handleLoginInformation = () => {
-        console.log('Button is Clicked')
+    const handleLoginInformation = (event) => {
+        event.preventDefault();
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+
+        setError('');
+
+        signInWithEmailAndPassword(auth, email, password)
+            .then((result) => {
+                sendEmailVerification(result.user)
+                    .then(() => {
+                        alert('Please Register with Valid Email Address!');
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+            })
+            .catch((error) => {
+                setError(error);
+            })
     }
     return (
         <div>
@@ -20,11 +41,26 @@ const Login = () => {
                                 onSubmit={handleLoginInformation}>
                                 <fieldset className="fieldset">
                                     <label className="label">Email</label>
-                                    <input type="email" className="input" placeholder="Email" />
+                                    <input
+                                        type="email"
+                                        className="input" placeholder="Email"
+                                        name='email' />
                                     <label className="label">Password</label>
-                                    <input type="password" className="input" placeholder="Password" />
-                                    <div><a className="link link-hover">Forgot password?</a></div>
-                                    <button className="btn btn-neutral mt-4">Login</button>
+                                    <input
+                                        type="password"
+                                        className="input" placeholder="Password"
+                                        name='password' />
+                                    <div>
+                                        <a className="link link-hover">Forgot password?
+                                        </a>
+                                    </div>
+                                    <button className="btn btn-neutral mt-4">
+                                        Login
+                                    </button>
+                                    {
+                                        error && <p
+                                            className='text-red-500'>{error}</p>
+                                    }
                                     <div className='flex items-center justify-around px-2'>
                                         <p>Don't Have an Account?</p>
                                         <NavLink

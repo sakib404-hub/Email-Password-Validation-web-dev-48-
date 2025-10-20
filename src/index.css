@@ -2,3 +2,16 @@
 @plugin "daisyui"{
   themes : light --default, dark, cupcake;
 };
+
+.nav-link{
+  text-decoration: none;
+  font-size: medium;
+  font-weight: 600;
+}
+
+.nav-link:hover{
+  color: rgba(255, 0, 0, 0.822);
+}
+.nav-link.active {
+  border-bottom: 4px solid red;
+}

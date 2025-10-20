@@ -5,13 +5,16 @@ const Navbar = () => {
 
     const links = <>
         <li>
-            <NavLink to='/'>Home</NavLink>
+            <NavLink to='/'
+                className='nav-link'>Home</NavLink>
         </li>
         <li>
-            <NavLink to='/login'>Login</NavLink>
+            <NavLink to='/login'
+                className='nav-link'>Login</NavLink>
         </li>
         <li>
-            <NavLink to='/register'>Register</NavLink>
+            <NavLink to='/register'
+                className='nav-link'>Register</NavLink>
         </li>
     </>
 
